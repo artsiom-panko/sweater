@@ -1,8 +1,10 @@
 package com.panko.sweater.controller;
 
 import com.panko.sweater.entity.Message;
+import com.panko.sweater.entity.User;
 import com.panko.sweater.repository.MessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,10 +31,12 @@ public class MainController {
     }
 
     @PostMapping("/main")
-    public String addMessage(@RequestParam String text,
-                             @RequestParam String tag,
-                             Map<String, Object> model) {
-        messageRepository.save(new Message(text, tag));
+    public String addMessage(
+            @AuthenticationPrincipal User user,
+            @RequestParam String text,
+            @RequestParam String tag,
+            Map<String, Object> model) {
+        messageRepository.save(new Message(text, tag, user));
         model.put("messages", messageRepository.findAll());
 
         return "main";
