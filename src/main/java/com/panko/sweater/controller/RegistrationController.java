@@ -29,7 +29,7 @@ public class RegistrationController {
     // TODO DTO
     @PostMapping
     public String addNewUser(User user, Map<String, Object> model) {
-        if (Objects.nonNull(userRepository.findByName(user.getName()))) {
+        if (Objects.nonNull(userRepository.findByUsername(user.getUsername()))) {
             model.put("message", "User already exists");
             return "registration";
         } else {
