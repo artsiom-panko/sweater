@@ -1,6 +1,5 @@
 package com.panko.sweater.entity;
 
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,12 +8,11 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Data
 @Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
     private String username;
     private String password;
     private boolean isActive;
@@ -60,11 +58,11 @@ public class User implements UserDetails {
     }
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -76,9 +74,13 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public String getIsActive() {
+        return isActive? "Activated" : "Not Activated";
     }
+
+//    public boolean isActive() {
+//        return isActive;
+//    }
 
     public void setActive(boolean active) {
         isActive = active;

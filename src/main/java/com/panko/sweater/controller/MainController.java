@@ -44,9 +44,9 @@ public class MainController {
     public String addMessage(
             @AuthenticationPrincipal User user,
             @RequestParam String text,
-            @RequestParam String filter,
+            @RequestParam String tag,
             Map<String, Object> model) {
-        messageRepository.save(new Message(text, filter, user));
+        messageRepository.save(new Message(text, tag, user));
         model.put("messages", messageRepository.findAll());
 
         return "main";
